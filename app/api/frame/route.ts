@@ -34,32 +34,30 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     getFrameHtmlResponse({
       buttons: [
         {
-          label: `State: ${state?.page || 0}`,
-        },
-        {
-          action: 'link',
-          label: 'OnchainKit',
-          target: 'https://onchainkit.xyz',
-        },
-        {
-          action: 'post_redirect',
-          label: 'Dog pictures',
+          label: `🌲 ${accountAddress} 🌲`,
         },
       ],
-      image: {
-        src: `${NEXT_PUBLIC_URL}/cat1.jpg`,
-      },
-      postUrl: `${NEXT_PUBLIC_URL}/api/frame`,
-      state: {
-        page: state?.page + 1,
-        time: new Date().toISOString(),
-      },
+      image: imageUrl,
+      post_url: `${NEXT_PUBLIC_URL}/api/frame`,
     }),
   );
 }
 
 export async function POST(req: NextRequest): Promise<Response> {
   return getResponse(req);
+}
+
+export async function GET() {
+  const img = await fetch('https://land-sea-and-sky.vercel.app/lss-bw.png').then((res) =>
+    res.blob(),
+  );
+  return new NextResponse(img, {
+    status: 200,
+    headers: {
+      'Content-Type': 'image/png',
+      'Cache-Control': 'max-age=10',
+    },
+  });
 }
 
 export const dynamic = 'force-dynamic';

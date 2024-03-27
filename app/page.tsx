@@ -2,18 +2,16 @@ import { getFrameMetadata } from '@coinbase/onchainkit/frame';
 import type { Metadata } from 'next';
 import { NEXT_PUBLIC_URL } from './config';
 
+const imageUrl = 'https://land-sea-and-sky.vercel.app/api/images/nft';
+
 const frameMetadata = getFrameMetadata({
   buttons: [
     {
-      action: 'link',
-      label: 'Link to Google',
-      target: 'https://www.google.com',
+      label: 'Click Me',
     },
   ],
-  image: {
-    src: `${NEXT_PUBLIC_URL}/cat1.jpg`,
-    aspectRatio: '1:1',
-  },
+  image: imageUrl,
+  post_url: `${NEXT_PUBLIC_URL}/api/frame`,
 });
 
 export const metadata: Metadata = {
@@ -22,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'zizzamia.xyz',
     description: 'LFG',
-    images: [`${NEXT_PUBLIC_URL}/cat1.jpg`],
+    images: [imageUrl],
   },
   other: {
     ...frameMetadata,
